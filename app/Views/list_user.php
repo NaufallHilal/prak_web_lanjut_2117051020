@@ -32,6 +32,15 @@
       <td><?=$user['nama']?></td>
       <td><?=$user['npm']?></td>
       <td><?=$user['nama_kelas']?></td>
+      <td>
+        <a href="<?= base_url('user/'.$user['id'])?>" type="button" ><img src="https://raw.githubusercontent.com/NaufallHilal/test/main/show.png" width="20" height="18" alt="Detail"/></a>
+      <a href="<?= base_url('/user/'.$user['id'].'/edit') ?>" type="button" class="btn btn-info ms-1 me-1">Edit</a>
+      <form action="<?= base_url('/user/'.$user['id'])?>" method="POST">
+          <input type="hidden" name="_method" value="DELETE">
+          <?= csrf_field()?>
+          <button type="submit" class="btn btn-danger">Hapus</button>
+    </form>
+    </td>
     </tr>
     <?php
         }
@@ -39,6 +48,13 @@
   </tbody>
 </table>
      </div>
+    </div>
+    <div class="col">
+      <div class="p-3 border bg-light">
+      <a href="<?=base_url('user/create')?>">
+  Tambah Data
+</a>
+      </div>
     </div>
   </div>
 </div>
