@@ -1,25 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <tr>
-        <td>Nama</td>
-        <td>:</td>
-        <td><?=$nama?></td>
-    </tr>
-    <tr>
-        <td>Kelas</td>
-        <td>:</td>
-        <td><?=$kelas?></td>
-    </tr>
-    <tr>
-        <td>Npm</td>
-        <td>:</td>
-        <td><?=$npm?></td>
-    </tr>
-</body>
-</html>
+<?= $this->extend('layouts/app')?>
+<?= $this->section('content')?>
+<div class="container overflow-hidden ">
+  <div class="row gy-3">
+    <div class="col-6">
+      <div class="p-3 border bg-light"> <?=$nama?></div>
+    </div>
+    <div class="col-6">
+      <div class="p-3 border bg-light"><?=$kelas?></div>
+    </div>
+    <div class="col-6">
+      <div class="p-3 border bg-light"><?=$npm?></div>
+    </div>
+    <div class="col-6">
+      <div class="p-3 border bg-light"><button>Kembali</button></div>
+    </div>
+  </div>
+</div>
+    
+<?= $this->endSection()?>
