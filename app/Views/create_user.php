@@ -6,6 +6,15 @@
     <title>Document</title>
 </head>
 <body>
+<?php if(session()->getFlashdata('errors')):?>
+    <div class="row">
+      <div class="col md-5">
+        <div class="alert alert-danger" role="alert">
+          <?=session()->getFlashdata('errors')?>
+        </div>
+      </div>
+    </div>
+    <?php endif; ?>
 <form action="<?= base_url('/user/store')?>" method="POST" enctype="multipart/form-data">
 <?= csrf_field() ?>
 
@@ -19,7 +28,18 @@
   </div>
   <div class="mb-3 ms-3 me-3">
     <label for="kelas" class="form-label">kelas</label>
-    <input type="text" class="form-control" id="kelas" name="kelas" value="<?= old('kelas')?>">
+    <select class="form-select" name="kelas" id="kelas" aria-label="Default select example">
+    <option selected value="">Kelas</option>
+    <?php
+    foreach($kelas as $item){
+      ?>
+      <option value="<?=$item['id'] . ',' . $item['nama_kelas']?>">
+      <?=$item['nama_kelas']?>
+      </option>
+      <?php
+    }
+    ?>
+  </select>
   </div>
   
   <button type="submit" class="btn btn-primary ms-3 me-3">Submit</button>
