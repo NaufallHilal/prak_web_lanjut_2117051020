@@ -11,7 +11,13 @@
     <?php endif; ?>
 <form action="<?= base_url('/user/store')?>" method="POST" enctype="multipart/form-data">
 <?= csrf_field() ?>
+<div class="mb-3 ms-3 me-3 mt-3">
+    <label for="foto" class="form-label">foto</label>
+    <input type="file" class="form-control" id="foto" name="foto" >
+  </div>  
+  <div>
 
+</div>
 <div class="mb-3 ms-3 me-3 mt-3">
     <label for="nama" class="form-label">nama</label>
     <input type="text" class="form-control" id="nama" name="nama" value="<?= old('nama')?>">
