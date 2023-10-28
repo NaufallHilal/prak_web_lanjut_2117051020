@@ -6,6 +6,8 @@ class Home extends BaseController
 {
     public function index(): string
     {
-        return view('welcome_message');
+        $data=['title'=>'Selamat Datang di web Naufal'];
+        return view('welcome_message', $data);
     }
+
 }

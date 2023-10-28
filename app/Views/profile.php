@@ -19,10 +19,10 @@ style="min-height: 12vh; font-weight: 400">
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item ms-3 me-3">
-          <a class="nav-link active" aria-current="page" href="#">Beranda</a>
+          <a class="nav-link "  href="<?= base_url('/')?>">Beranda</a>
         </li>
         <li class="nav-item ms-2 me-2">
-          <a class="nav-link "  href="<?= base_url('/user')?>">Users</a>
+          <a class="nav-link active" aria-current="page" href="#">Users</a>
         </li>
         <li class="nav-item ms-3 me-3">
           <a class="nav-link "  href="<?= base_url('/kelas')?>">Kelas</a>
@@ -34,9 +34,9 @@ style="min-height: 12vh; font-weight: 400">
 
     <div class="heroe">
 
-        <h1>UTP Web Lanjut Naufal Hilal</h1>
+        <h1><?=$user['nama']?></h1>
 
-        <h2>2117051020</h2>
+        <h2><?=$user['npm']?></h2>
 
     </div>
 
@@ -46,49 +46,33 @@ style="min-height: 12vh; font-weight: 400">
 
 <section>
 
-    <h1>Tentang tugas web ini</h1>
-
-    <p>Halaman ini adalah beranda yang akan menampilkan beberapa menu untuk pengelolaan data mahasiswa</p>
-
-    <p>Anda dapat melihat data Mahasiswa didalam page User. Dapat diakses melalui tab Users di dalam navbar</p>
-
-    <pre><code>Beranda  <b>Users</b>   Kelas</code></pre>
-
-    <p>Anda dapat melihat data kelas didalam page Kelas. Dapat diakses melalui tab Kelas di dalam navbar</p>
-
-    <pre><code>Beranda  Users   <b>Kelas</b></code></pre>
+<div class="container overflow-hidden ">
+  <div class="row gy-3">
+  <div class="col-15">
+      <div class="p-5 border bg-light" ><img
+          src="<?= $user['foto'] ?? '<default-foto>' ?>"
+          alt="naufal hilal"
+          class="naufal"
+          width="180"
+          height="180"
+        /></div>
+    </div>
+    <div class="col-6">
+      <div class="p-3 border bg-light"> <?=$user['nama']?></div>
+    </div>
+    <div class="col-6">
+      <div class="p-3 border bg-light"><?=$user['nama_kelas']?></div>
+    </div>
+    <div class="col-6">
+      <div class="p-4 border bg-light"><?=$user['npm']?></div>
+    </div>
+    <div class="col-6">
+      <div class="p-3 border bg-light"><a href="<?= base_url('/user')?>" type="button" class="btn btn-info ms-1 me-1">Kembali</a></div>
+    </div>
+  </div>
+</div>
 
 </section>
-
-<div class="further">
-
-    <section>
-
-        <h1>Tentang Saya</h1>
-
-        <h2>
-            Nama
-        </h2>
-
-        <p>Naufal Hilal</p>
-
-        <h2>
-            NPM
-        </h2>
-
-        <p>2117051020</p>
-
-        <h2>
-             Github
-        </h2>
-
-        <p>
-             <a href="https://github.com/NaufallHilal/prak_web_lanjut_2117051020" target="_blank">
-             Github Project</a></p>
-
-    </section>
-
-</div>
 
 <!-- FOOTER: DEBUG INFO + COPYRIGHTS -->
 

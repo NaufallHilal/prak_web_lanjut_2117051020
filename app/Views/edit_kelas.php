@@ -19,13 +19,13 @@ style="min-height: 12vh; font-weight: 400">
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item ms-3 me-3">
-          <a class="nav-link active" aria-current="page" href="#">Beranda</a>
+          <a class="nav-link "  href="<?= base_url('/')?>">Beranda</a>
         </li>
         <li class="nav-item ms-2 me-2">
           <a class="nav-link "  href="<?= base_url('/user')?>">Users</a>
         </li>
         <li class="nav-item ms-3 me-3">
-          <a class="nav-link "  href="<?= base_url('/kelas')?>">Kelas</a>
+          <a class="nav-link active" aria-current="page" href="#">Kelas</a>
         </li>
       </ul>
     </div>
@@ -34,9 +34,9 @@ style="min-height: 12vh; font-weight: 400">
 
     <div class="heroe">
 
-        <h1>UTP Web Lanjut Naufal Hilal</h1>
+        <h1>Edit Data Kelas</h1>
 
-        <h2>2117051020</h2>
+        <h2>Ubah data Kelas Nama</h2>
 
     </div>
 
@@ -46,49 +46,36 @@ style="min-height: 12vh; font-weight: 400">
 
 <section>
 
-    <h1>Tentang tugas web ini</h1>
+<?php if(session()->getFlashdata('errors')):?>
+    <div class="row">
+      <div class="col md-5">
+        <div class="alert alert-danger" role="alert">
+          <?=session()->getFlashdata('errors')?>
+        </div>
+      </div>
+    </div>
+    <?php endif; ?>
+<form action="<?= base_url('/kelas/'.$kelas['id'])?>" method="POST" enctype="multipart/form-data">
+<input type="hidden" name="_method" value="PUT">
+<input type="hidden" name="id" value="<?= $kelas['id']?>">
+<?= csrf_field() ?>
+<fieldset disabled>
+<div class="mb-3 ms-3 me-3">
+    <label for="npm" class="form-label">id</label>
+    <input type="text" class="form-control"  placeholder="Disabled input" id="disabledTextInput"name="id" value="<?= $kelas['id']?>">
+  </div>
+</fieldset>
+<div class="mb-3 ms-3 me-3 mt-3">
+    <label for="nama" class="form-label">nama</label>
+    <input type="text" class="form-control" id="nama" name="namaKelasEdit" value="<?= $kelas['nama_kelas']?>">
+  </div>
+  
+  <button type="submit" class="btn btn-primary ms-3 me-3">Submit</button>
+  <a href="<?= base_url('/kelas')?>" type="button" class="btn btn-info ms-1 me-1">Kembali</a>
+</form>
 
-    <p>Halaman ini adalah beranda yang akan menampilkan beberapa menu untuk pengelolaan data mahasiswa</p>
-
-    <p>Anda dapat melihat data Mahasiswa didalam page User. Dapat diakses melalui tab Users di dalam navbar</p>
-
-    <pre><code>Beranda  <b>Users</b>   Kelas</code></pre>
-
-    <p>Anda dapat melihat data kelas didalam page Kelas. Dapat diakses melalui tab Kelas di dalam navbar</p>
-
-    <pre><code>Beranda  Users   <b>Kelas</b></code></pre>
 
 </section>
-
-<div class="further">
-
-    <section>
-
-        <h1>Tentang Saya</h1>
-
-        <h2>
-            Nama
-        </h2>
-
-        <p>Naufal Hilal</p>
-
-        <h2>
-            NPM
-        </h2>
-
-        <p>2117051020</p>
-
-        <h2>
-             Github
-        </h2>
-
-        <p>
-             <a href="https://github.com/NaufallHilal/prak_web_lanjut_2117051020" target="_blank">
-             Github Project</a></p>
-
-    </section>
-
-</div>
 
 <!-- FOOTER: DEBUG INFO + COPYRIGHTS -->
 
@@ -108,3 +95,4 @@ style="min-height: 12vh; font-weight: 400">
 
 </footer>
 <?= $this->endSection()?>
+
