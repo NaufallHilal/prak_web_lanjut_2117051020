@@ -42,7 +42,7 @@ class UserController extends BaseController
     }
 
     public function store(){
-        if(!$this->validate($this->userModel->getValidationRules())){
+        if(!$this->validate($this->userModel->getValidationRules(['only'=>['nama','kelas','npm','foto']]))){
             session()->setFlashdata('errors',$this->validator->listErrors());
             return redirect()->back()->withInput();
         }
@@ -85,13 +85,17 @@ class UserController extends BaseController
          return view('edit_user',$data);
      }
      public function update($id){
+        if(!$this->validate($this->userModel->getValidationRules(['only'=>['id','namaEdit','kelasEdit','npmEdit']]))){
+            session()->setFlashdata('errors',$this->validator->listErrors());
+            return redirect()->back()->withInput();
+        }
         $path='assets/upload/img/';
         $foto=$this->request->getFile('foto');
 
         $data=[
-            'nama'=>$this->request->getVar('nama'),
-            'id_kelas'=>$this->request->getVar('kelas'),
-            'npm'=>$this->request->getVar('npm'),
+            'nama'=>$this->request->getVar('namaEdit'),
+            'id_kelas'=>$this->request->getVar('kelasEdit'),
+            'npm'=>$this->request->getVar('npmEdit'),
         ];
 
         if($foto->isValid()){
@@ -116,5 +120,61 @@ class UserController extends BaseController
             return redirect()->back()->with('error','Gagal Menghapus Data');
         }
         return redirect()->to(base_url('/user'))->with('success','Berhasil Menghapus Data');
+    }
+    public function listKelas(){
+        $users=$this->userModel->getUser();
+        $data=[
+            'title'=>'List Kelas',
+            'kelas'=>$this->kelasModel->getKelas(),
+            'total'=>$this->kelasModel->getUserPerKelas($users),
+        ];
+        return view('list_kelas',$data);
+    }
+    public function addKelas(){
+        $data=[
+            'title'=>'Tambah Kelas',
+        ];
+        return view('add_kelas', $data);
+    }
+    public function storeKelas(){
+        if(!$this->validate($this->kelasModel->getValidationRules(['only'=>['namaKelas']]))){
+            session()->setFlashdata('errors',$this->validator->listErrors());
+            return redirect()->back()->withInput();
+        }
+        $this->kelasModel->saveKelas(['nama_kelas'=> $this->request->getVar('namaKelas'),]);
+        session()->setFlashdata('success','data berhasil ditambahkan');
+
+        return redirect()->to('/kelas');
+    }
+    public function editKelas($id){
+        $kelas=$this->kelasModel->getKelas($id);
+ 
+         $data=[
+             'title'=>'Edit Kelas',
+             'kelas'=>$kelas,
+         ];
+ 
+         return view('edit_kelas',$data);
+     }
+     public function updateKelas($id){
+        if(!$this->validate($this->kelasModel->getValidationRules(['only'=>['namaKelasEdit','id']]))){
+            session()->setFlashdata('errors',$this->validator->listErrors());
+            return redirect()->back()->withInput();
+        }
+        $data=['nama_kelas'=>$this->request->getVar('namaKelasEdit')];
+        $result =$this->kelasModel->updateKelas($data,$id);
+        if(!$result){
+            return redirect()->back()->withInput()->with('error','Gagal Menyimpan data');
+        }
+
+        return redirect()->to(base_url('/kelas'));
+     }
+
+    public function hapusKelas($id){
+        $result = $this->kelasModel->deleteKelas($id);
+        if(!$result){
+            return redirect()->back()->with('error','Gagal Menghapus Data');
+        }
+        return redirect()->to(base_url('/kelas'))->with('success','Berhasil Menghapus Data');
     }
 }

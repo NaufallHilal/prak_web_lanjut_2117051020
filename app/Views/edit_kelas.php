@@ -22,10 +22,10 @@ style="min-height: 12vh; font-weight: 400">
           <a class="nav-link "  href="<?= base_url('/')?>">Beranda</a>
         </li>
         <li class="nav-item ms-2 me-2">
-          <a class="nav-link active" aria-current="page" href="#">Users</a>
+          <a class="nav-link "  href="<?= base_url('/user')?>">Users</a>
         </li>
         <li class="nav-item ms-3 me-3">
-          <a class="nav-link "  href="<?= base_url('/kelas')?>">Kelas</a>
+          <a class="nav-link active" aria-current="page" href="#">Kelas</a>
         </li>
       </ul>
     </div>
@@ -34,9 +34,9 @@ style="min-height: 12vh; font-weight: 400">
 
     <div class="heroe">
 
-        <h1>Tambah Data User</h1>
+        <h1>Edit Data Kelas</h1>
 
-        <h2>Masukkan data user Nama, Npm, Kelas, Foto</h2>
+        <h2>Ubah data Kelas Nama</h2>
 
     </div>
 
@@ -55,42 +55,25 @@ style="min-height: 12vh; font-weight: 400">
       </div>
     </div>
     <?php endif; ?>
-<form action="<?= base_url('/user/store')?>" method="POST" enctype="multipart/form-data">
+<form action="<?= base_url('/kelas/'.$kelas['id'])?>" method="POST" enctype="multipart/form-data">
+<input type="hidden" name="_method" value="PUT">
+<input type="hidden" name="id" value="<?= $kelas['id']?>">
 <?= csrf_field() ?>
-<div class="mb-3 ms-3 me-3 mt-3">
-    <label for="foto" class="form-label">foto</label>
-    <input type="file" class="form-control" id="foto" name="foto" >
-  </div>  
-  <div>
-
-</div>
+<fieldset disabled>
+<div class="mb-3 ms-3 me-3">
+    <label for="npm" class="form-label">id</label>
+    <input type="text" class="form-control"  placeholder="Disabled input" id="disabledTextInput"name="id" value="<?= $kelas['id']?>">
+  </div>
+</fieldset>
 <div class="mb-3 ms-3 me-3 mt-3">
     <label for="nama" class="form-label">nama</label>
-    <input type="text" class="form-control" id="nama" name="nama" value="<?= old('nama')?>">
-  </div>
-  <div class="mb-3 ms-3 me-3">
-    <label for="npm" class="form-label">npm</label>
-    <input type="text" class="form-control" id="npm" name="npm" value="<?= old('npm')?>">
-  </div>
-  <div class="mb-3 ms-3 me-3">
-    <label for="kelas" class="form-label">kelas</label>
-    <select class="form-select" name="kelas" id="kelas" aria-label="Default select example">
-    <option selected value="">Kelas</option>
-    <?php
-    foreach($kelas as $item){
-      ?>
-      <option value="<?=$item['id'] . ',' . $item['nama_kelas']?>">
-      <?=$item['nama_kelas']?>
-      </option>
-      <?php
-    }
-    ?>
-  </select>
+    <input type="text" class="form-control" id="nama" name="namaKelasEdit" value="<?= $kelas['nama_kelas']?>">
   </div>
   
   <button type="submit" class="btn btn-primary ms-3 me-3">Submit</button>
-  <a href="<?= base_url('/user')?>" type="button" class="btn btn-info ms-1 me-1">Kembali</a>
+  <a href="<?= base_url('/kelas')?>" type="button" class="btn btn-info ms-1 me-1">Kembali</a>
 </form>
+
 
 </section>
 
@@ -112,3 +95,4 @@ style="min-height: 12vh; font-weight: 400">
 
 </footer>
 <?= $this->endSection()?>
+

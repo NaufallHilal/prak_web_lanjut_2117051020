@@ -23,9 +23,23 @@ class KelasModel extends Model
     protected $deletedField  = 'delete_at';
 
     // Validation
-    protected $validationRules      = [];
+    protected $validationRules      = ['namaKelas'=>[
+        'rules'=> 'required|is_unique[kelas.nama_kelas]',
+        'errors'=>[
+            'required'=> '{field} tidak boleh kosong',
+            'is_unique'=>'{field} sudah terdaftar',
+        ]
+        ],
+        'namaKelasEdit'=>['rules'=> 'required|is_unique[kelas.nama_kelas,id,{id}]',
+        'errors'=>[
+            'required'=> 'nama tidak boleh kosong',
+            'is_unique'=>'nama sudah terdaftar',
+        ]
+    ],
+        'id' => 'permit_empty',
+    ];
     protected $validationMessages   = [];
-    protected $skipValidation       = false;
+    protected $skipValidation       = true;
     protected $cleanValidationRules = true;
 
     // Callbacks
@@ -39,7 +53,37 @@ class KelasModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function getKelas(){
-        return $this->findAll();
+    public function getKelas($id=null){
+        if($id!=null){
+            return $this->find($id);
+        }else{
+            return $this->findAll();
+        }
+    }
+    public function getUserPerKelas($users){
+        $kelas=$this->getKelas();
+        $total_user=[];
+        foreach($kelas as $kelasItem){
+            $total_user[$kelasItem['nama_kelas']]=0;
+        }
+        foreach($kelas as $k){
+            foreach($users as $user){
+                if($user['id_kelas']==$k['id']){
+                    $total_user[$k['nama_kelas']] += 1 ;
+                }
+            }
+        }
+        return $total_user;
+    }
+
+    public function saveKelas($data){
+        $this->insert($data);
+    }
+    public function updateKelas($data,$id){
+        return $this->update($id,$data);
+    }
+
+    public function deleteKelas($id){
+        return $this->delete($id);
     }
 }
