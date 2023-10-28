@@ -17,15 +17,15 @@ style="min-height: 12vh; font-weight: 400">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-3">
-        <li class="nav-item ms-2 me-3">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item ms-3 me-3">
           <a class="nav-link "  href="<?= base_url('/')?>">Beranda</a>
         </li>
         <li class="nav-item ms-2 me-2">
-          <a class="nav-link active" aria-current="page" href="#">Users</a>
+          <a class="nav-link "  href="<?= base_url('/user')?>">Users</a>
         </li>
-        <li class="nav-item ms-3 ">
-          <a class="nav-link" href="<?= base_url('/kelas')?>">Kelas</a>
+        <li class="nav-item ms-3 me-3">
+          <a class="nav-link active" aria-current="page" href="#">Kelas</a>
         </li>
       </ul>
     </div>
@@ -34,9 +34,9 @@ style="min-height: 12vh; font-weight: 400">
 
     <div class="heroe">
 
-        <h1>List Users</h1>
+        <h1>List Kelas</h1>
 
-        <h2 class="fst-italic ">nama, npm, kelas, aksi</h2>
+        <h2 class="fst-italic ">kelas, jumlah mahasiswa, aksi</h2>
 
     </div>
 
@@ -63,25 +63,22 @@ style="min-height: 12vh; font-weight: 400">
   <thead>
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">Nama</th>
-      <th scope="col">NPM</th>
       <th scope="col">Kelas</th>
+      <th scope="col">Jumlah Mahasiswa</th>
       <th scope="col">Aksi</th>
     </tr>
   </thead>
   <tbody>
     <?php
-        foreach($users as $user){
+       foreach($kelas as $kelas){
     ?>
     <tr>
-      <td><?=$user['id']?></td>
-      <td><?=$user['nama']?></td>
-      <td><?=$user['npm']?></td>
-      <td><?=$user['nama_kelas']?></td>
+      <td><?=$kelas['id']?></td>
+      <td><?=$kelas['nama_kelas']?></td>
+      <td><?= $total[$kelas['nama_kelas']]?></td>
       <td>
-        <a href="<?= base_url('user/'.$user['id'])?>" type="button" class="btn btn-secondary "><img src="https://raw.githubusercontent.com/NaufallHilal/test/main/show.png" width="20" height="20" alt="Detail"/></a>
-      <a href="<?= base_url('/user/'.$user['id'].'/edit') ?>" type="button" class="btn btn-info ms-1 me-1">Edit</a>
-      <form action="<?= base_url('/user/'.$user['id'])?>" method="POST">
+      <a href="<?= base_url('kelas/'.$kelas['id'].'/edit')?>" type="button" class="btn btn-info ms-1 me-1">Edit</a>
+      <form action="<?= base_url('/kelas/'.$kelas['id'])?>" method="POST">
           <input type="hidden" name="_method" value="DELETE">
           <?= csrf_field()?>
           <button type="submit" class="btn btn-danger mt-1">Hapus</button>
@@ -93,15 +90,15 @@ style="min-height: 12vh; font-weight: 400">
     ?>
   </tbody>
 </table>
-<?php if($users==null):?>
-    <tr>Tidak ada data Users</tr>
-    <?php endif; ?>
+<?php if($kelas==null):?>
+    <tr>Tidak ada data Kelas</tr>
+    <?php endif ?>
      </div>
     </div>
     <div class="col">
       <div class="p-3 border bg-light">
-      <a href="<?=base_url('user/create')?>" type="button" class="btn btn-success ms-1 me-1">
-  Tambah User
+      <a href="<?=base_url('/kelas/add')?>" type="button" class="btn btn-success ms-1 me-1">
+  Tambah Kelas
 </a>
 <a href="<?=base_url('/')?>" type="button" class="btn btn-danger ms-1 me-1 mt-1">
   Beranda

@@ -43,6 +43,35 @@ class UserModel extends Model
         'errors'=>[
             'required'=> '{field} tidak valid'
         ]
+    ],
+    'foto'=>[
+        'rules'=>'uploaded[foto]|ext_in[foto,png,jpg,jpeg]',
+        'errors'=>[
+            'uploaded'=> '{field} tidak boleh kosong',
+            'ext_in'=>'{field} tidak valid'
+        ]
+    ],
+    'id' => 'permit_empty',
+    'namaEdit'=>[
+        'rules'=>'required',
+        'errors'=>[
+            'required'=> '{field} tidak valid'
+        ]
+    ],
+    'npmEdit'=>[
+        'rules'=>'required|is_unique[user.npm,id,{id}]|max_length[10]|min_length[10]',
+        'errors'=>[
+            'required'=> '{field} tidak boleh kosong',
+            'is_unique'=>'{field} sudah terdaftar',
+            'max_length'=>'{field} melebihi batas maksimal',
+            'min_length'=>'{field} tidak valid',
+        ]
+    ],
+    'kelasEdit'=>[
+        'rules'=>'required',
+        'errors'=>[
+            'required'=> '{field} tidak valid'
+        ]
     ],];
     protected $validationMessages   = [];
     protected $skipValidation       = true;
@@ -66,7 +95,7 @@ class UserModel extends Model
         if($id!=null){
             return $this->select('user.*,kelas.nama_kelas')->join('kelas','kelas.id=user.id_kelas')->find($id);
         }
-        return $this->select('user.*,kelas.nama_kelas')->join('kelas','kelas.id=user.id_kelas')->findAll();
+        return $this->select('user.*,kelas.nama_kelas')->join('kelas','kelas.id=user.id_kelas')->orderBy('user.id','asc')->findAll();
     }
     public function updateUser($data,$id){
         return $this->update($id,$data);
